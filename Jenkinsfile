@@ -23,13 +23,13 @@ pipeline {
             }
         }
         stage('SAST') {
+            environment {
+                SCANNER_HOME = tool 'SonarQube Scanner'
+                PROJECT_KEY = 'jenkins-nude'
+            }
             steps {
                 echo '*** Scanning the code...'
                 // test command here
-                environment {
-                    SCANNER_HOME = tool 'SonarQube Scanner'
-                    $PROJECT_KEY = 'jenkins-nude'
-                }
                 withSonarQubeEnv('SonarQube server') {
                     sh '''${scannerHome}/bin/linux-x86-64/sonar.sh \
                     -Dsonar.projectKey=$PROJECT_KEY \
