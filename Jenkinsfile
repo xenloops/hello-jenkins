@@ -4,18 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo '***************************'
                 echo '*** Building the project...'
-                echo '***************************'
                 // build command here
                 sh 'javac Main.java'
             }
         }
         stage('SCA') {
             steps {
-                echo '***************************'
-                echo '*** Testing the project...'
-                echo '***************************'
+                echo '*** Checking libraries...'
                 // SCA command here
                 dependencyCheck additionalArguments: '''
                    -o "./"
@@ -26,12 +22,16 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
-        stage('Test') {
+        stage('SAST') {
             steps {
-                echo '***************************'
-                echo '*** Testing the project...'
-                echo '***************************'
+                echo '*** Scanning the code...'
                 // test command here
+                script {
+                    scannerHome = tool 'SonarQube Scanner';
+                }
+                withSonarQubeEnv('SonarQube Scanner') {
+                    sh "${scannerHome}/bin/linux-x86-64/sonar.sh" 
+                }
             }
         }
         stage('Deploy') {
