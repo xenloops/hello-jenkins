@@ -13,13 +13,13 @@ pipeline {
             steps {
                 echo '*** Checking libraries...'
                 // SCA command here
-//                 dependencyCheck additionalArguments: '''
-//                    -o "./"
-//                    -s "./"
-//                    -f "ALL"
-//                    --prettyPrint''',
-//                        odcInstallation: 'SCA: Dependency-Check'
-//                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                dependencyCheck additionalArguments: '''
+                   -o "./"
+                   -s "./"
+                   -f "ALL"
+                   --prettyPrint''',
+                       odcInstallation: 'SCA: Dependency-Check'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
         stage('SAST') {
@@ -48,6 +48,8 @@ pipeline {
             steps {
                 echo '*** Deploying the project...'
                 // deploy command here
+                // mimic delay:
+                sh 'sleep 10'
             }
         }
     }
