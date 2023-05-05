@@ -8,6 +8,7 @@ pipeline {
                 echo '*** Building the project...'
                 echo '***************************'
                 // build command here
+                sh 'javac Main.java'
             }
         stage('Test') {
             steps {
