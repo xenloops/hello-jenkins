@@ -31,7 +31,7 @@ pipeline {
                 echo '*** Scanning the code...'
                 // test command here
                 withSonarQubeEnv('SonarQube server') {
-                    sh '''${scannerHome}/bin/linux-x86-64/sonar.sh \
+                    sh '''$SCANNER_HOME/bin/linux-x86-64/sonar.sh \
                     -Dsonar.projectKey=$PROJECT_KEY \
                     -Dsonar.projectName='Java project analyzed by SonarQube' \
                     -Dsonar.projectVersion=1.0 \
