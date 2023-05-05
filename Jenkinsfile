@@ -26,6 +26,7 @@ pipeline {
             environment {
                 SCANNER_HOME = tool 'SonarQube Scanner'
                 PROJECT_KEY = 'jenkins-nude'
+                PROJECT_NAME = 'Java project analyzed by SonarQube'
             }
             steps {
                 echo '*** Scanning the code...'
@@ -33,7 +34,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube server') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner \
                     -Dsonar.projectKey=$PROJECT_KEY \
-                    -Dsonar.projectName='Java project analyzed by SonarQube' \
+                    -Dsonar.projectName=$PROJECT_NAME \
                     -Dsonar.projectVersion=1.0 \
                     -Dsonar.sources=. \
                     -Dsonar.language=java \
