@@ -17,8 +17,7 @@ pipeline {
                 echo '*** Testing the project...'
                 echo '***************************'
                 // SCA command here
-                dependencyCheck
-                additionalArguments: '''
+                dependencyCheck additionalArguments: '''
                    -o "./"
                    -s "./"
                    -f "ALL"
