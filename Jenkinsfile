@@ -27,7 +27,7 @@ pipeline {
                 echo '*** Scanning the code...'
                 // test command here
                 script {
-                    scannerHome = tool 'SonarQube Scanner';
+                    scannerHome = tool 'sonarScanner';
                 }
                 withSonarQubeEnv('SonarQube Scanner') {
                     sh "${scannerHome}/bin/linux-x86-64/sonar.sh" 
