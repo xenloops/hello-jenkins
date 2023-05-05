@@ -11,6 +11,22 @@ pipeline {
                 sh 'javac Main.java'
             }
         }
+        stage('SCA') {
+            steps {
+                echo '***************************'
+                echo '*** Testing the project...'
+                echo '***************************'
+                // SCA command here
+                dependencyCheck
+                additionalArguments: '''
+                   -o "./"
+                   -s "./"
+                   -f "ALL"
+                   --prettyPrint''',
+                       odcInstallation: 'SCA: Dependency-Check'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
         stage('Test') {
             steps {
                 echo '***************************'
